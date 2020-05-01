@@ -1,2 +1,0 @@
-# covidtracker
-Created with CodeSandbox
