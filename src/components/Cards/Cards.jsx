@@ -4,8 +4,8 @@ import styles from "./Cards.module.css";
 import CountUp from "react-countup";
 import cx from "classnames";
 
-const Cards = ({ data: { TotalConfirmed, TotalDeaths, TotalRecovered } }) => {
-  if (!TotalConfirmed) {
+const Cards = ({ data: { confirmed, recovered, deaths } }) => {
+  if (!confirmed) {
     return "Loading...";
   }
   return (
@@ -25,7 +25,7 @@ const Cards = ({ data: { TotalConfirmed, TotalDeaths, TotalRecovered } }) => {
             <Typography variant="h5">
               <CountUp
                 start={0}
-                end={TotalConfirmed}
+                end={confirmed.value}
                 duration={2.5}
                 separator=","
               />
@@ -50,7 +50,7 @@ const Cards = ({ data: { TotalConfirmed, TotalDeaths, TotalRecovered } }) => {
             <Typography variant="h5">
               <CountUp
                 start={0}
-                end={TotalRecovered}
+                end={recovered.value}
                 duration={2.5}
                 separator=","
               />
@@ -75,7 +75,7 @@ const Cards = ({ data: { TotalConfirmed, TotalDeaths, TotalRecovered } }) => {
             <Typography variant="h5">
               <CountUp
                 start={0}
-                end={TotalDeaths}
+                end={deaths.value}
                 duration={2.5}
                 separator=","
               />

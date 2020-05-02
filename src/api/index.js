@@ -1,25 +1,27 @@
 import Axios from "axios";
 
-const url1 = "https://api.covid19api.com/summary";
-const url2 = "https://api.covid19india.org/data.json";
-const url3 = "https://covid19.mathdro.id/api";
+// const url1 = "https://api.covid19api.com/summary";
+// const url2 = "https://api.covid19india.org/data.json";
+const url = "https://covid19.mathdro.id/api";
 
-export const fetchData = async () => {
+export const fetchData = async country => {
+  let changeableUrl = url;
+
+  if (country) {
+    changeableUrl = `${url}/countries/${country}`;
+  }
   try {
-    const {
-      data: {
-        Global: { TotalConfirmed, TotalDeaths, TotalRecovered }
-      }
-    } = await Axios.get(url1);
+    const { data: { confirmed, recovered, deaths } }
+     = await Axios.get(changeableUrl);
 
-    const modifiedData = { TotalConfirmed, TotalDeaths, TotalRecovered };
+    const modifiedData = { confirmed, recovered, deaths };
     return modifiedData;
   } catch (error) {}
 };
 
 export const fetchDailyData = async () => {
   try {
-    const { data } = await Axios.get(`${url3}/daily`);
+    const { data } = await Axios.get(`${url}/daily`);
 
     const modifiedData = data.map(dailyData => ({
       confirmed: dailyData.confirmed.total,
@@ -37,7 +39,7 @@ export const fetchCountries = async () => {
   try {
     const {
       data: { countries }
-    } = await Axios.get(`${url3}/countries`);
+    } = await Axios.get(`${url}/countries`);
 
     return countries.map(country => country.name);
   } catch (error) {
