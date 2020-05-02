@@ -11,10 +11,11 @@ export const fetchData = async country => {
     changeableUrl = `${url}/countries/${country}`;
   }
   try {
-    const { data: { confirmed, recovered, deaths } }
-     = await Axios.get(changeableUrl);
+    const {
+      data: { confirmed, recovered, deaths, lastUpdate }
+    } = await Axios.get(changeableUrl);
 
-    const modifiedData = { confirmed, recovered, deaths };
+    const modifiedData = { confirmed, recovered, deaths, lastUpdate };
     return modifiedData;
   } catch (error) {}
 };
